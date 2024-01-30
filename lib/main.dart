@@ -24,8 +24,20 @@ class HomePage extends StatelessWidget {
         ),
         backgroundColor: Colors.blue,
       ),
-      body: const Center(
-        child: Text("Placeholder"),
+      body: const Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            child: Card(
+              elevation: 5,
+              child: Text("Graph"),
+            ),
+          ),
+          Card(
+            child: Text("Transaction list"),
+          )
+        ],
       ),
     );
   }
