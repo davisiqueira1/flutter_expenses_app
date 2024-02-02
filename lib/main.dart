@@ -25,17 +25,19 @@ class HomePage extends StatelessWidget {
         ),
         backgroundColor: Colors.blue,
       ),
-      body: const Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            child: Card(
-              elevation: 5,
-              child: Text("Graph"),
+      body: const SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              child: Card(
+                elevation: 5,
+                child: Text("Graph"),
+              ),
             ),
-          ),
-          TransactionUser()
-        ],
+            TransactionUser()
+          ],
+        ),
       ),
     );
   }
