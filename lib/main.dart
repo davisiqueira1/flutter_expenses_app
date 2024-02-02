@@ -23,6 +23,14 @@ class HomePage extends StatelessWidget {
           "Expenses",
           style: TextStyle(color: Colors.white),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ))
+        ],
         backgroundColor: Colors.blue,
       ),
       body: const SingleChildScrollView(
@@ -39,6 +47,15 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
