@@ -28,6 +28,7 @@ class ExpensesApp extends StatelessWidget {
               color: Colors.black),
         ),
         appBarTheme: const AppBarTheme(
+          color: Colors.white,
           titleTextStyle: TextStyle(
               fontFamily: "OpenSans",
               fontSize: 20,
@@ -47,18 +48,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Transaction> _transactions = [
-    Transaction(
-      id: "id1",
-      title: "title1",
-      value: 123.56,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: "id2",
-      title: "title2",
-      value: 789.10,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: "id1",
+    //   title: "title1",
+    //   value: 123.56,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: "id2",
+    //   title: "title2",
+    //   value: 789.10,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void _addTransaction(String title, double value) {
@@ -93,7 +94,10 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () => _openFormModal(context),
-              icon: const Icon(Icons.add))
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ))
         ],
       ),
       body: SingleChildScrollView(
