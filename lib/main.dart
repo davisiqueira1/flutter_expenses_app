@@ -1,4 +1,6 @@
+import 'dart:ffi';
 import 'dart:math';
+import 'package:expenses_app/components/chart.dart';
 import 'package:expenses_app/components/transaction_form.dart';
 import 'package:expenses_app/components/transaction_list.dart';
 import 'package:expenses_app/models/transaction.dart';
@@ -48,19 +50,35 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Transaction> _transactions = [
-    // Transaction(
-    //   id: "id1",
-    //   title: "title1",
-    //   value: 123.56,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: "id2",
-    //   title: "title2",
-    //   value: 789.10,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: "id0",
+      title: "title0",
+      value: 1.23,
+      date: DateTime.now().subtract(const Duration(days: 50)),
+    ),
+    Transaction(
+      id: "id1",
+      title: "title1",
+      value: 123.56,
+      date: DateTime.now().subtract(const Duration(days: 3)),
+    ),
+    Transaction(
+      id: "id2",
+      title: "title2",
+      value: 789.10,
+      date: DateTime.now().subtract(const Duration(days: 4)),
+    ),
   ];
+
+  List<Transaction> get _recentTransactions => _transactions
+      .where(
+        (t) => t.date.isAfter(
+          DateTime.now().subtract(
+            const Duration(days: 7),
+          ),
+        ),
+      )
+      .toList();
 
   void _addTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -104,12 +122,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SizedBox(
-              child: Card(
-                elevation: 5,
-                child: Text("Graph"),
-              ),
-            ),
+            Chart(transactions: _recentTransactions),
             TransactionList(transactions: _transactions),
           ],
         ),
