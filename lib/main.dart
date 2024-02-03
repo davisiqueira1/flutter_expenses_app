@@ -4,14 +4,24 @@ import 'package:expenses_app/components/transaction_list.dart';
 import 'package:expenses_app/models/transaction.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const ExpensesApp());
+void main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
-  const ExpensesApp({super.key});
+  ExpensesApp({super.key});
+
+  final ThemeData theme = ThemeData();
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    return MaterialApp(
+      home: const HomePage(),
+      theme: theme.copyWith(
+        colorScheme: theme.colorScheme.copyWith(
+          primary: Colors.purple,
+          secondary: Colors.amber,
+        ),
+      ),
+    );
   }
 }
 
@@ -65,19 +75,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Expenses",
-          style: TextStyle(color: Colors.white),
-        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: const Text("Expenses"),
         actions: [
           IconButton(
               onPressed: () => _openFormModal(context),
-              icon: const Icon(
-                Icons.add,
-                color: Colors.white,
-              ))
+              icon: const Icon(Icons.add))
         ],
-        backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -94,12 +98,9 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
         onPressed: () => _openFormModal(context),
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
