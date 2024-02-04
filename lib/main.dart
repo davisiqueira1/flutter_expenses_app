@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math';
 import 'package:expenses_app/components/chart.dart';
 import 'package:expenses_app/components/transaction_form.dart';
@@ -32,9 +31,10 @@ class ExpensesApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           color: Colors.white,
           titleTextStyle: TextStyle(
-              fontFamily: "OpenSans",
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
+            fontFamily: "OpenSans",
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
