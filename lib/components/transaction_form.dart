@@ -48,15 +48,34 @@ class _TransactionFormState extends State<TransactionForm> {
               decoration: const InputDecoration(labelText: "Value"),
               onSubmitted: (_) => _submitForm(),
             ),
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: [
+                  const Text("No date selected!"),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text("Select date"),
+                  )
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
-                    onPressed: _submitForm,
-                    child: const Text(
-                      "New transaction",
-                      style: TextStyle(color: Colors.purple),
-                    )),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    shape: const BeveledRectangleBorder(),
+                  ),
+                  onPressed: _submitForm,
+                  child: Text(
+                    "New transaction",
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.labelLarge!.color,
+                    ),
+                  ),
+                ),
               ],
             )
           ],
