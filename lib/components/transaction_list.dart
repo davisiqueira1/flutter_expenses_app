@@ -6,9 +6,12 @@ class TransactionList extends StatelessWidget {
   const TransactionList({
     super.key,
     required List<Transaction> transactions,
-  }) : _transactions = transactions;
+    required Function(String id) onDelete,
+  })  : _transactions = transactions,
+        _onDelete = onDelete;
 
   final List<Transaction> _transactions;
+  final Function(String id) _onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +65,10 @@ class TransactionList extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     subtitle: Text(DateFormat('d MMM y').format(t.date)),
+                    trailing: IconButton(
+                      onPressed: () => _onDelete(_transactions[index].id),
+                      icon: const Icon(Icons.delete),
+                    ),
                   ),
                 );
               },
