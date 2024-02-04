@@ -29,7 +29,7 @@ class Chart extends StatelessWidget {
           "day": DateFormat.E().format(weekDay)[0],
           "value": totalSum,
         };
-      });
+      }).reversed.toList();
 
   double get _weekTotalValue =>
       groupedTransactions.fold(0.0, (sum, tr) => sum + (tr["value"] as double));
