@@ -29,11 +29,13 @@ class Chart extends StatelessWidget {
           "day": DateFormat.E().format(weekDay)[0],
           "value": totalSum,
         };
-      }); // just a placeholder value
+      });
+
+  double get _weekTotalValue =>
+      groupedTransactions.fold(0.0, (sum, tr) => sum + (tr["value"] as double));
 
   @override
   Widget build(BuildContext context) {
-    groupedTransactions;
     return Card(
       elevation: 6,
       margin: const EdgeInsets.all(20),
@@ -41,8 +43,8 @@ class Chart extends StatelessWidget {
         children: groupedTransactions.map((Map<String, Object> t) {
           return ChartBar(
             label: t["day"].toString(),
-            value: double.parse(t["value"].toString()),
-            percentage: 0.5,
+            value: t["value"] as double,
+            percentage: (t["value"] as double) / _weekTotalValue,
           );
         }).toList(),
       ),
