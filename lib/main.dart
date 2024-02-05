@@ -54,6 +54,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Transaction> _transactions = [];
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions => _transactions
       .where(
@@ -96,10 +97,25 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool _isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     final appBar = AppBar(
       backgroundColor: Theme.of(context).colorScheme.primary,
       title: const Text("Expenses"),
       actions: [
+        if (_isLandscape)
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _showChart = !_showChart;
+              });
+            },
+            icon: Icon(
+              _showChart ? Icons.list : Icons.bar_chart_rounded,
+              color: Colors.white,
+            ),
+          ),
         IconButton(
             onPressed: () => _openFormModal(context),
             icon: const Icon(
@@ -118,19 +134,21 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-              height: availableHeight * 0.25,
-              child: Chart(
-                transactions: _recentTransactions,
+            if (_showChart || !_isLandscape)
+              SizedBox(
+                height: availableHeight * 0.25,
+                child: Chart(
+                  transactions: _recentTransactions,
+                ),
               ),
-            ),
-            SizedBox(
-              height: availableHeight * 0.75,
-              child: TransactionList(
-                transactions: _transactions,
-                onDelete: _onDelete,
+            if (!_showChart || !_isLandscape)
+              SizedBox(
+                height: availableHeight * 0.75,
+                child: TransactionList(
+                  transactions: _transactions,
+                  onDelete: _onDelete,
+                ),
               ),
-            ),
           ],
         ),
       ),
