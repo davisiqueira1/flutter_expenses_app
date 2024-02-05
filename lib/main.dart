@@ -119,13 +119,13 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(
-              height: availableHeight * 0.3,
+              height: availableHeight * 0.25,
               child: Chart(
                 transactions: _recentTransactions,
               ),
             ),
             SizedBox(
-              height: availableHeight * 0.7,
+              height: availableHeight * 0.75,
               child: TransactionList(
                 transactions: _transactions,
                 onDelete: _onDelete,
