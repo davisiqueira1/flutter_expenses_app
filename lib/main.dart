@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             if (_showChart || !_isLandscape)
               SizedBox(
-                height: availableHeight * 0.25,
+                height: availableHeight * (!_isLandscape ? 0.25 : 0.7),
                 child: Chart(
                   transactions: _recentTransactions,
                 ),
