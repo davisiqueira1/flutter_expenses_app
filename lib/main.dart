@@ -4,6 +4,7 @@ import 'package:expenses_app/components/chart.dart';
 import 'package:expenses_app/components/transaction_form.dart';
 import 'package:expenses_app/components/transaction_list.dart';
 import 'package:expenses_app/models/transaction.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(ExpensesApp());
@@ -96,43 +97,59 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _getIconButton(IconData icon, void Function() fn) {
+    return Platform.isIOS
+        ? GestureDetector(
+            onTap: fn,
+            child: Icon(icon),
+          )
+        : IconButton(
+            onPressed: fn,
+            icon: Icon(
+              icon,
+              color: Colors.white,
+            ),
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
 
     bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
+    final actions = [
+      if (isLandscape)
+        _getIconButton(
+          _showChart
+              ? (Platform.isIOS ? CupertinoIcons.list_bullet : Icons.list)
+              : (Platform.isIOS
+                  ? CupertinoIcons.chart_bar_alt_fill
+                  : Icons.bar_chart_rounded),
+          () {
+            setState(() {
+              _showChart = !_showChart;
+            });
+          },
+        ),
+      _getIconButton(
+        Platform.isIOS ? CupertinoIcons.add : Icons.add,
+        () => _openFormModal(context),
+      )
+    ];
+
     final appBar = AppBar(
       backgroundColor: Theme.of(context).colorScheme.primary,
       title: const Text("Expenses"),
-      actions: [
-        if (isLandscape)
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _showChart = !_showChart;
-              });
-            },
-            icon: Icon(
-              _showChart ? Icons.list : Icons.bar_chart_rounded,
-              color: Colors.white,
-            ),
-          ),
-        IconButton(
-            onPressed: () => _openFormModal(context),
-            icon: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ))
-      ],
+      actions: actions,
     );
+
     final availableHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
         mediaQuery.padding.top;
 
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
+    final bodyPage = SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -154,14 +171,31 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: Platform.isIOS
-          ? null
-          : FloatingActionButton(
-              onPressed: () => _openFormModal(context),
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              child: const Icon(Icons.add),
-            ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            navigationBar: CupertinoNavigationBar(
+              middle: const Text("Expenses"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: actions,
+              ),
+            ),
+            child: bodyPage,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: bodyPage,
+            floatingActionButton: Platform.isIOS
+                ? null
+                : FloatingActionButton(
+                    onPressed: () => _openFormModal(context),
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    child: const Icon(Icons.add),
+                  ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+          );
   }
 }
