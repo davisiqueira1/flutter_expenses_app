@@ -47,58 +47,65 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: const InputDecoration(labelText: "Title"),
-              onSubmitted: (_) => _submitForm(),
-            ),
-            TextField(
-              controller: _valueController,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(labelText: "Value"),
-              onSubmitted: (_) => _submitForm(),
-            ),
-            SizedBox(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      "Selected date: ${DateFormat("M/d/y").format(_selectedDate)}",
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: _showDatePicker,
-                    child: const Text("Select date"),
-                  )
-                ],
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            children: [
+              TextField(
+                controller: _titleController,
+                decoration: const InputDecoration(labelText: "Title"),
+                onSubmitted: (_) => _submitForm(),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: _submitForm,
-                  child: Text(
-                    "New transaction",
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.labelLarge!.color,
+              TextField(
+                controller: _valueController,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(labelText: "Value"),
+                onSubmitted: (_) => _submitForm(),
+              ),
+              SizedBox(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "Selected date: ${DateFormat("M/d/y").format(_selectedDate)}",
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: _showDatePicker,
+                      child: const Text("Select date"),
+                    )
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    onPressed: _submitForm,
+                    child: Text(
+                      "New transaction",
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.labelLarge!.color,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            )
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
