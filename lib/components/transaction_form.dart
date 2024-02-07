@@ -2,7 +2,6 @@ import 'package:expenses_app/components/adaptative_button.dart';
 import 'package:expenses_app/components/adaptative_date_picker.dart';
 import 'package:expenses_app/components/adaptative_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
   const TransactionForm({
