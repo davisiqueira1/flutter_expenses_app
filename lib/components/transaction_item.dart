@@ -25,7 +25,7 @@ class TransactionItem extends StatelessWidget {
             padding: const EdgeInsets.all(6),
             child: FittedBox(
               child: Text(
-                "\$${transaction.value}",
+                "\$${transaction.value.toStringAsFixed(2)}",
                 style: const TextStyle(color: Colors.white),
               ),
             ),
